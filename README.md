@@ -4,7 +4,7 @@ An advanced, browser-based real estate video generation studio that automates pr
 
 ---
 
-## ✨ Key Features
+## Key Features
 
 - **Dynamic Studio Canvas Preview:** Real-time 9:16 (Story/Reel) and 16:9 (Landscape) preview rendering using HTML5 Canvas.
 - **Ken Burns Animation & Transitions:** Smooth zoom effects and fade/morph transitions between property images.
