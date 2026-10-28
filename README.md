@@ -1,6 +1,6 @@
 # Intelligent Real Estate Video Generation using AI
 
-An advanced, browser-based real estate video generation studio that automates property reels, social media stories, and cinematic showcases complete with Ken Burns zoom effects, AI voiceovers, custom background music, and instant MP4 video export.
+An advanced, browser-based real estate video generation tool that automates property reels, social media stories, and cinematic showcases complete with transition effects, AI voiceovers, custom background music, and instant MP4 video export.
 
 ---
 
