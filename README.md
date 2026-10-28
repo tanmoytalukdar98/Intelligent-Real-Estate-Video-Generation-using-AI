@@ -7,7 +7,7 @@ An advanced, browser-based real estate video generation tool that automates prop
 ## Key Features
 
 - **Dynamic Studio Canvas Preview:** Real-time 9:16 (Story/Reel) and 16:9 (Landscape) preview rendering using HTML5 Canvas.
-- **Ken Burns Animation & Transitions:** Smooth zoom effects and fade/morph transitions between property images.
+- **Animation & Transitions:** Smooth zoom effects and fade/morph transitions between property images.
 - **AI Voiceover & Script Generation:** Automatically generates professional marketing voiceover scripts with adjustable tone (Luxury, Energetic, Cozy) using Web Speech Synthesis.
 - **Background Audio Support:** Upload custom background tracks (`.mp3`, `.wav`) with live volume control.
 - **Preset Data Loader:** Instant pre-loaded datasets for Penthouses, Beachfront Villas, Lofts, and Suburban Estates.
