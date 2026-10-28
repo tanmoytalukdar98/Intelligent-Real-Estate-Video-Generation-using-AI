@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent Real Estate Video Generation using AI</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        glass: {
+                            50: 'rgba(255, 255, 255, 0.05)',
+                            100: 'rgba(255, 255, 255, 0.1)',
+                            200: 'rgba(255, 255, 255, 0.15)',
+                            border: 'rgba(255, 255, 255, 0.12)',
+                        },
+                        accent: {
+                            400: '#38bdf8',
+                            500: '#06b6d4',
+                            600: '#0284c7',
+                            700: '#0369a1'
+                        },
+                        dark: {
+                            900: '#030712',
+                            800: '#0f172a',
+                            700: '#1e293b',
+                            600: '#334155'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts for High-End Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: auto !important;
+            min-height: 100vh;
+            overflow-y: auto !important;
+            overflow-x: hidden;
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .dark .glass-panel {
+            background: rgba(15, 23, 42, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        html:not(.dark) .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
+        }
+        .glass-panel:hover {
+            border-color: rgba(56, 189, 248, 0.25);
+            box-shadow: 0 12px 40px 0 rgba(56, 189, 248, 0.15);
+        }
+        .glass-btn {
+            background: rgba(56, 189, 248, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: #0284c7;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .dark .glass-btn {
+            color: #38bdf8;
+        }
+        .glass-btn:hover {
+            background: rgba(56, 189, 248, 0.25);
+            border-color: rgba(56, 189, 248, 0.6);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+            transform: translateY(-2px) scale(1.02);
+        }
+        .accent-gradient-bg {
+            background: linear-gradient(135deg, #0284c7 0%, #06b6d4 100%);
+        }
+        .accent-btn {
+            background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+            transition: all 0.25s ease-in-out;
+            box-shadow: 0 4px 20px rgba(2, 132, 199, 0.35);
+            color: #ffffff;
+        }
+        .accent-btn:hover {
+            filter: brightness(1.15);
+            box-shadow: 0 6px 24px rgba(56, 189, 248, 0.5);
+            transform: translateY(-2px) scale(1.02);
+        }
+        input:hover, select:hover, textarea:hover, button:hover, label:hover {
+            transform: translateY(-1px);
+        }
+        input, select, textarea {
+            transition: all 0.2s ease;
+        }
+        input:focus, select:focus, textarea:focus {
+            transform: scale(1.01);
+        }
+        .hover-zoom-card {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+        }
+        .hover-zoom-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-dark-900 text-slate-900 dark:text-slate-100 font-sans flex flex-col antialiased selection:bg-accent-500/30 selection:text-accent-400 transition-colors duration-300">
+    
+    <!-- Top Navbar -->
+    <header class="border-b border-slate-200 dark:border-white/10 bg-white/80 dark:bg-dark-900/80 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-xl accent-gradient-bg flex items-center justify-center font-bold text-white text-lg shadow-lg shadow-accent-600/30">
+                    <i class="fa-solid fa-video text-white text-sm"></i>
+                </div>
+                <div>
+                    <h1 class="text-base font-bold text-slate-900 dark:text-white tracking-wide flex items-center gap-2">
+                        Intelligent Real Estate Video Generation using AI
+                    </h1>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Automated Property Reel & Story Video Generator</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleDarkMode()" id="themeToggleBtn" class="text-slate-700 dark:text-slate-300 hover:text-accent-600 dark:hover:text-white text-xs px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 hover:border-accent-400/50 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 transition backdrop-blur-md flex items-center gap-2 font-medium">
+                    <i id="themeIcon" class="fa-solid fa-moon"></i>
+                    <span id="themeText">Dark Mode</span>
+                </button>
+
+                <button onclick="clearAllData()" class="text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 transition backdrop-blur-md flex items-center gap-1 font-medium">
+                    <i class="fa-solid fa-rotate-right mr-1"></i> Clear Data
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Left Column: Property Details & Asset Manager (5 Cols) -->
+            <div class="lg:col-span-5 space-y-6">
+                
+                <!-- Card 1: Property Details -->
+                <div class="glass-panel rounded-2xl p-6 hover-zoom-card">
+                    <div class="flex items-center justify-between mb-4 border-b border-slate-200 dark:border-white/10 pb-3">
+                        <h2 class="text-lg font-semibold text-slate-900 dark:text-white flex items-center">
+                            <i class="fa-solid fa-building text-accent-500 dark:text-accent-400 mr-2.5"></i> Property Details
+                        </h2>
+                        <div class="flex items-center space-x-2">
+                            <select id="presetSelector" onchange="loadPresetDataset(this.value)" class="bg-slate-100 dark:bg-dark-800 text-[11px] text-accent-600 dark:text-accent-400 border border-accent-500/30 rounded-lg px-2.5 py-1.5 focus:outline-none cursor-pointer font-medium">
+                                <option value="" disabled selected>✨ Fill Sample Data</option>
+                                <option value="penthouse">Grand Horizon Penthouse</option>
+                                <option value="villa">Azure Beachside Villa</option>
+                                <option value="loft">SoHo Artistic Loft</option>
+                                <option value="suburban">Maplewood Family Home</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 text-sm">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Property Title *</label>
+                            <input type="text" id="propTitle" placeholder="e.g. Modern Luxury Penthouse" class="w-full bg-slate-100 dark:bg-dark-800/80 border border-slate-200 dark:border-white/10 rounded-xl px-3 py-2 text-slate-900 dark:text-white focus:outline-none focus:border-accent-400/60 focus:ring-1 focus:ring-accent-400/50 transition backdrop-blur-sm" oninput="renderCurrentFrame()">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Location *</label>
+                                <input type="text" id="propLocation" placeholder="e.g. New York, NY" class="w-full bg-slate-100 dark:bg-dark-800/80 border border-slate-200 dark:border-white/10 rounded-xl px-3 py-2 text-slate-900 dark:text-white focus:outline-none focus:border-accent-400/60 focus:ring-1 focus:ring-accent-400/50 transition backdrop-blur-sm" oninput="renderCurrentFrame()">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Property Type *</label>
+                                <select id="propType" class="w-full bg-slate-100 dark:bg-dark-800/80 border border-slate-200 dark:border-white/10 rounded-xl px-3 py-2 text-slate-900 dark:text-white focus:outline-none focus:border-accent-400/60 focus:ring-1 focus:ring-accent-400/50 transition backdrop-blur-sm">
+                                    <option value="" disabled selected>Select type</option>
+                                    <option value="Luxury Penthouse">Luxury Penthouse</option>
+                                    <option value="Modern Villa">Modern Villa</option>
+                                    <option value="2-BHK Apartment">2-BHK Apartment</option>
+                                    <option value="3-BHK Luxury Suite">3-BHK Luxury Suite</option>
+                                    <option value="Commercial Office Space">Commercial Space</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Asking Price *</label>
+                                <input type="text" id="propPrice" placeholder="e.g. $1,250,000" class="w-full bg-slate-100 dark:bg-dark-800/80 border border-slate-200 dark:border-white/10 rounded-xl px-3 py-2 text-slate-900 dark:text-white focus:outline-none focus:border-accent-400/60 focus:ring-1 focus:ring-accent-400/50 transition backdrop-blur-sm" oninput="renderCurrentFrame()">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Call to Action (CTA)</label>
+                                <input type="text" id="propCTA" placeholder="e.g. Contact Agent Today" class="w-full bg-slate-100 dark:bg-dark-800/80 border border-slate-200 dark:border-white/10 rounded-xl px-3 py-2 text-slate-900 dark:text-white focus:outline-none focus:border-accent-400/60 focus:ring-1 focus:ring-accent-400/50 transition backdrop-blur-sm" oninput="renderCurrentFrame()">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Key Features (comma separated)</label>
+                            <textarea id="propFeatures" rows="3" placeholder="e.g. Skyline Views, Pool, Smart Home" class="w-full bg-slate-100 dark:bg-dark-800/80 border border-slate-200 dark:border-white/10 rounded-xl px-3 py-2 text-slate-900 dark:text-white focus:outline-none focus:border-accent-400/60 focus:ring-1 focus:ring-accent-400/50 transition text-xs backdrop-blur-sm" oninput="renderCurrentFrame()"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Property Images & Gallery -->
+                <div class="glass-panel rounded-2xl p-6 hover-zoom-card">
+                    <div class="flex items-center justify-between mb-4 border-b border-slate-200 dark:border-white/10 pb-3">
+                        <div class="flex items-center space-x-2">
+                            <h2 class="text-lg font-semibold text-slate-900 dark:text-white flex items-center">
+                                <i class="fa-solid fa-images text-accent-500 dark:text-accent-400 mr-2.5"></i> Property Images
+                            </h2>
+                            <span id="imgCountBadge" class="text-xs bg-accent-500/20 text-accent-600 dark:text-accent-400 px-2.5 py-0.5 rounded-full border border-accent-400/30 font-medium">0 Images</span>
+                        </div>
+                        <button onclick="document.getElementById('fileUpload').click()" class="text-xs glass-btn px-3 py-1.5 rounded-xl flex items-center font-semibold">
+                            <i class="fa-solid fa-upload mr-1.5"></i> Upload Custom
+                        </button>
+                        <input type="file" id="fileUpload" multiple accept="image/*" class="hidden" onchange="handleImageUpload(event)">
+                    </div>
+
+                    <div id="imageGalleryGrid" class="grid grid-cols-4 gap-2 mb-3">
+                        <!-- Empty placeholder state -->
+                    </div>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Upload photos or select sample data to begin.</p>
+                </div>
+
+            </div>
+
+            <!-- Right Column: Audio & Voiceover + Canvas Video Player (7 Cols) -->
+            <div class="lg:col-span-7 space-y-6">
+                
+                <!-- Card 3: AI Voiceover & Background Music -->
+                <div class="glass-panel rounded-2xl p-6 hover-zoom-card">
+                    <div class="flex items-center justify-between mb-3 border-b border-slate-200 dark:border-white/10 pb-3">
+                        <h2 class="text-lg font-semibold text-slate-900 dark:text-white flex items-center">
+                            <i class="fa-solid fa-wand-magic-sparkles text-accent-500 dark:text-accent-400 mr-2.5"></i> Audio & Voiceover
+                        </h2>
+                        <div class="flex space-x-2">
+                            <button onclick="speakCurrentScript()" class="glass-btn text-xs px-2.5 py-1.5 rounded-xl flex items-center font-medium">
+                                <i class="fa-solid fa-volume-high mr-1"></i> Test Voice
+                            </button>
+                            <button onclick="generateAIScript()" class="accent-btn text-white font-semibold text-xs px-3 py-1.5 rounded-xl flex items-center">
+                                <i class="fa-solid fa-bolt mr-1"></i> Generate Script
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 text-sm">
+                        <!-- Custom Background Music Uploader -->
+                        <div class="bg-slate-100 dark:bg-dark-800/60 p-3 rounded-xl border border-slate-200 dark:border-white/10 space-y-2 backdrop-blur-sm">
+                            <div class="flex items-center justify-between">
+                                <label class="block text-xs font-medium text-accent-600 dark:text-accent-400 flex items-center">
+                                    <i class="fa-solid fa-music mr-1.5"></i> Custom Background Music
+                                </label>
+                                <span id="bgMusicStatus" class="text-[10px] text-slate-500 dark:text-slate-400">No Track Uploaded</span>
+                            </div>
+
+                            <div class="flex items-center space-x-2">
+                                <button onclick="document.getElementById('musicFileInput').click()" class="w-full text-xs bg-white dark:bg-white/5 hover:bg-slate-50 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 hover:border-accent-400/40 py-2 rounded-xl transition flex items-center justify-center font-medium backdrop-blur-sm shadow-sm">
+                                    <i class="fa-solid fa-file-audio mr-1.5 text-accent-500 dark:text-accent-400"></i> Choose Audio File (.mp3, .wav)
+                                </button>
+                                <input type="file" id="musicFileInput" accept="audio/*" class="hidden" onchange="handleMusicUpload(event)">
+                                <button id="removeMusicBtn" onclick="removeBackgroundMusic()" class="hidden text-xs text-rose-500 dark:text-rose-400 bg-rose-500/10 hover:bg-rose-500/20 p-2 rounded-xl border border-rose-500/30 transition">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+
+                            <!-- Music Volume Slider -->
+                            <div id="musicControls" class="hidden flex items-center space-x-2 pt-1 text-xs">
+                                <span class="text-slate-500 dark:text-slate-400 text-[10px]"><i class="fa-solid fa-volume-low"></i></span>
+                                <input type="range" id="bgMusicVolume" min="0" max="1" step="0.05" value="0.3" class="w-full accent-accent-500 dark:accent-accent-400 h-1 rounded bg-slate-300 dark:bg-dark-900" oninput="updateMusicVolume(this.value)">
+                                <span class="text-slate-500 dark:text-slate-400 text-[10px]"><i class="fa-solid fa-volume-high"></i></span>
+                            </div>
+                        </div>
+
+                        <!-- Voice Setup -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Tone & Persona</label>
+                                <select id="scriptTone" class="w-full bg-slate-100 dark:bg-dark-800/80 border border-slate-200 dark:border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-accent-400/60" onchange="generateAIScript()">
+                                    <option value="luxury">Luxury & Exclusive</option>
+                                    <option value="energetic">Energetic & Fast-Paced</option>
+                                    <option value="cozy">Cozy & Welcoming</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">AI Voice Select</label>
+                                <select id="voice-select" class="w-full bg-slate-100 dark:bg-dark-800/80 border border-slate-200 dark:border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-accent-400/60" onchange="onVoiceChange()">
+                                    <option value="auto">Auto Best Voice</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="text-xs font-medium text-slate-700 dark:text-slate-300">Generated Voiceover Script <span class="text-accent-600 dark:text-accent-400 font-normal">(Edit lines here)</span></label>
+                                <span id="wordCountBadge" class="text-[10px] text-slate-500 dark:text-slate-400">0 words</span>
+                            </div>
+                            <textarea id="scriptText" rows="3" class="w-full bg-slate-100 dark:bg-dark-800/80 border border-slate-200 dark:border-white/10 rounded-xl px-3 py-2 text-slate-900 dark:text-white focus:outline-none focus:border-accent-400/60 text-xs transition backdrop-blur-sm" placeholder="Click 'Generate Script' or write custom narration lines..." oninput="updateWordCount()"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Canvas Player & Controls -->
+                <div class="glass-panel rounded-2xl p-6 relative hover-zoom-card">
+                    
+                    <!-- Player Top Bar -->
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-2">
+                            <span id="livePulse" class="w-3 h-3 rounded-full bg-slate-400 dark:bg-slate-600"></span>
+                            <h3 class="text-sm font-semibold text-slate-900 dark:text-white tracking-wide uppercase">Studio Canvas Preview</h3>
+                        </div>
+                        <div class="flex items-center space-x-3 text-xs">
+                            <span id="resolutionBadge" class="bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-white/10 backdrop-blur-md">1080x1920 (9:16 Story)</span>
+                            <button onclick="toggleAspectRatio()" id="aspectBtn" class="text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-white transition font-medium" title="Toggle Aspect Ratio">
+                                <i class="fa-solid fa-mobile-screen mr-1"></i> Switch Format
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Canvas Container -->
+                    <div class="relative w-full bg-slate-950 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center border border-slate-200 dark:border-white/10 min-h-[380px] md:min-h-[480px]">
+                        <canvas id="videoCanvas" class="max-h-[500px] w-auto object-contain mx-auto"></canvas>
+
+                        <!-- HUD Info -->
+                        <div id="videoHud" class="absolute top-3 left-3 bg-slate-950/70 backdrop-blur-md px-3 py-1 rounded-full text-[11px] text-accent-400 border border-accent-400/20 flex items-center space-x-2">
+                            <i class="fa-solid fa-film"></i>
+                            <span id="hudSlideInfo">Scene 0 of 0</span>
+                        </div>
+
+                        <!-- Audio Activity Indicator -->
+                        <div id="audioVisualizer" class="absolute top-3 right-3 flex items-end space-x-1 h-4 px-2 py-1 bg-slate-950/70 backdrop-blur-md rounded-lg opacity-40 border border-white/10">
+                            <div class="w-1 bg-accent-400 h-2"></div>
+                            <div class="w-1 bg-accent-500 h-4"></div>
+                            <div class="w-1 bg-cyan-400 h-3"></div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Control Bar -->
+                    <div class="mt-4 space-y-3">
+                        <div class="flex items-center space-x-3 text-xs text-slate-600 dark:text-slate-400 font-mono">
+                            <span id="currentTimeText">00:00</span>
+                            <div class="flex-grow relative h-2 bg-slate-200 dark:bg-dark-900 rounded-full overflow-hidden cursor-pointer border border-slate-300 dark:border-white/10" onclick="seekVideo(event)">
+                                <div id="timelineProgress" class="h-full bg-gradient-to-r from-accent-600 via-accent-400 to-cyan-300 w-0 transition-all duration-100"></div>
+                            </div>
+                            <span id="totalTimeText">00:30</span>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-2">
+                            <div class="flex items-center space-x-3">
+                                <button onclick="togglePlayPause()" id="playBtn" class="accent-btn text-white font-bold w-10 h-10 rounded-full flex items-center justify-center shadow-lg transform active:scale-95 transition">
+                                    <i id="playIcon" class="fa-solid fa-play ml-0.5"></i>
+                                </button>
+                                <button onclick="stopVideo()" class="bg-slate-200 dark:bg-white/5 hover:bg-slate-300 dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 w-10 h-10 rounded-full flex items-center justify-center border border-slate-300 dark:border-white/10 transition backdrop-blur-md">
+                                    <i class="fa-solid fa-stop"></i>
+                                </button>
+                            </div>
+
+                            <div class="flex items-center space-x-2">
+                                <button onclick="recordAndExportVideo()" id="exportBtn" class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold text-xs px-4 py-2.5 rounded-xl shadow-lg flex items-center transition">
+                                    <i class="fa-solid fa-circle-down mr-2 text-sm"></i> Export MP4 Video
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Generation Loader & Status Modal -->
+                <div id="exportStatusBox" class="hidden glass-panel border border-accent-400/30 rounded-2xl p-5 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-accent-500/20 text-accent-600 dark:text-accent-400 flex items-center justify-center">
+                                <i class="fa-solid fa-spinner fa-spin text-sm" id="exportSpinner"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-slate-900 dark:text-white" id="exportTitle">Generating MP4 Video...</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400" id="exportDesc">Compiling frames, KEN BURNS zoom effects, audio tracks, and morph transitions.</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-mono text-accent-600 dark:text-accent-400 font-bold" id="exportPercent">0%</span>
+                    </div>
+
+                    <!-- Video Generation Loader Progress Bar -->
+                    <div class="w-full bg-slate-200 dark:bg-dark-900 rounded-full h-2.5 overflow-hidden border border-slate-300 dark:border-white/10 relative">
+                        <div id="exportProgressBar" class="bg-gradient-to-r from-accent-500 to-cyan-400 h-full w-0 transition-all duration-200"></div>
+                    </div>
+
+                    <div id="downloadActionArea" class="hidden pt-2 flex items-center justify-between border-t border-slate-200 dark:border-white/10">
+                        <span class="text-xs text-emerald-600 dark:text-emerald-400 flex items-center font-medium"><i class="fa-solid fa-circle-check mr-1.5"></i> MP4 Video successfully generated and ready!</span>
+                        <a id="downloadLink" download="real_estate_showcase.mp4" class="accent-btn text-white text-xs font-bold px-4 py-2 rounded-xl inline-flex items-center shadow-lg">
+                            <i class="fa-solid fa-download mr-1.5"></i> Download MP4 Video
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer Credits -->
+    <footer class="border-t border-slate-200 dark:border-white/10 py-4 text-center text-xs text-slate-500 dark:text-slate-400 mt-8 backdrop-blur-md font-medium">
+        Tanmoy Talukdar, 23BAI70271
+    </footer>
+
+    <!-- HTML5 Audio Element for Background Music Track -->
+    <audio id="bgMusicAudio" loop crossorigin="anonymous"></audio>
+
+    <!-- JAVASCRIPT APP ENGINE -->
+    <script>
+        let propertyImages = [];
+        let canvas = null;
+        let ctx = null;
+        let isPlaying = false;
+        let currentTime = 0;
+        const TARGET_VIDEO_DURATION = 30; // Strictly locked to 30 seconds
+        let slideDuration = 6;
+        let totalDuration = 30;
+        let isPortrait = true;
+        let animationFrameId = null;
+        let lastTimestamp = 0;
+        let lastSpokenScene = -1;
+
+        let bgAudioElement = null;
+        let bgAudioLoaded = false;
+
+        let availableVoices = [];
+        let selectedVoice = null;
+        let speechSynth = window.speechSynthesis || null;
+
+        const PRESET_DATASETS = {
+            penthouse: {
+                title: "The Grand Horizon Luxury Penthouse",
+                location: "Downtown Financial District, NY",
+                type: "Luxury Penthouse",
+                price: "$1,250,000",
+                cta: "Schedule a Tour: +1 (800) 555-REAL",
+                features: "Panoramic Skyline Views, Private Infinity Pool, Smart Home Automation, Designer Marble Kitchen, 24/7 Concierge Service",
+                images: [
+                    { caption: "Penthouse Living Room", url: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1080&q=80" },
+                    { caption: "Modern Luxury Kitchen", url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1080&q=80" },
+                    { caption: "Master Bedroom Suite", url: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1080&q=80" },
+                    { caption: "Private Infinity Pool Deck", url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1080&q=80" },
+                    { caption: "Skyline Balcony Terrace", url: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1080&q=80" }
+                ]
+            },
+            villa: {
+                title: "Azure Coastline Beach Villa",
+                location: "Malibu Beachfront, California",
+                type: "Modern Villa",
+                price: "$3,450,000",
+                cta: "Book Private Viewing: +1 (310) 555-VILLA",
+                features: "Direct Beach Access, Sunset Ocean Views, Resort-Style Pool, Expansive Teak Deck, Custom Wine Cellar",
+                images: [
+                    { caption: "Beachfront Exterior View", url: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1080&q=80" },
+                    { caption: "Sunlit Lounge Area", url: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1080&q=80" },
+                    { caption: "Oceanview Master Bedroom", url: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=1080&q=80" },
+                    { caption: "Outdoor Dining Patio", url: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1080&q=80" }
+                ]
+            },
+            loft: {
+                title: "SoHo Artistic Industrial Loft",
+                location: "SoHo Arts District, New York",
+                type: "3-BHK Luxury Suite",
+                price: "$895,000",
+                cta: "Contact Agent: +1 (212) 555-LOFT",
+                features: "Original Exposed Brick, 14-Foot Timber Ceilings, Oversized Factory Windows, Gourmet Chef Island, Custom Steel Staircase",
+                images: [
+                    { caption: "Open Concept Living Space", url: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1080&q=80" },
+                    { caption: "Industrial Kitchen", url: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1080&q=80" },
+                    { caption: "Artist Studio Corner", url: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1080&q=80" }
+                ]
+            },
+            suburban: {
+                title: "Maplewood Family Estate",
+                location: "Greenwich Suburbs, Connecticut",
+                type: "Modern Villa",
+                price: "$1,150,000",
+                cta: "Call Today: +1 (203) 555-HOME",
+                features: "Private Acre Garden, Heated In-Ground Pool, Fully Finished Media Basement, Dual Car Garage, Gourmet Kitchen",
+                images: [
+                    { caption: "Front Estate Façade", url: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1080&q=80" },
+                    { caption: "Cozy Family Hearth", url: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1080&q=80" },
+                    { caption: "Spacious Backyard Lawn", url: "https://images.unsplash.com/photo-1592595896616-c37162298647?auto=format&fit=crop&w=1080&q=80" }
+                ]
+            }
+        };
+
+        function toggleDarkMode() {
+            const htmlEl = document.documentElement;
+            const isDark = htmlEl.classList.contains('dark');
+            const themeText = document.getElementById('themeText');
+            const themeIcon = document.getElementById('themeIcon');
+
+            if (isDark) {
+                htmlEl.classList.remove('dark');
+                themeText.innerText = 'Light Mode';
+                themeIcon.className = 'fa-solid fa-sun';
+            } else {
+                htmlEl.classList.add('dark');
+                themeText.innerText = 'Dark Mode';
+                themeIcon.className = 'fa-solid fa-moon';
+            }
+            renderCurrentFrame();
+        }
+
+        function loadPresetDataset(presetKey) {
+            const data = PRESET_DATASETS[presetKey];
+            if (!data) return;
+
+            document.getElementById('propTitle').value = data.title;
+            document.getElementById('propLocation').value = data.location;
+            document.getElementById('propType').value = data.type;
+            document.getElementById('propPrice').value = data.price;
+            document.getElementById('propCTA').value = data.cta;
+            document.getElementById('propFeatures').value = data.features;
+
+            propertyImages = data.images.map(item => {
+                const img = new Image();
+                img.crossOrigin = "anonymous";
+                img.src = item.url;
+                return {
+                    caption: item.caption,
+                    url: item.url,
+                    loadedImage: img
+                };
+            });
+
+            renderImageGallery();
+            generateAIScript();
+            renderCurrentFrame();
+            
+            document.getElementById('presetSelector').selectedIndex = 0;
+        }
+
+        window.onload = function() {
+            if (window.lucide) lucide.createIcons();
+            canvas = document.getElementById('videoCanvas');
+            if (canvas) ctx = canvas.getContext('2d');
+
+            bgAudioElement = document.getElementById('bgMusicAudio');
+
+            initSpeechEngine();
+            setCanvasDimensions();
+            setupFormListeners();
+            clearAllData(); // Starts completely empty on load/refresh
+
+            window.addEventListener('resize', () => {
+                setCanvasDimensions();
+                renderCurrentFrame();
+            });
+        };
+
+        function setupFormListeners() {
+            const inputs = ['propTitle', 'propLocation', 'propType', 'propPrice', 'propCTA', 'propFeatures'];
+            inputs.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('input', () => {
+                        renderCurrentFrame();
+                    });
+                }
+            });
+        }
+
+        function setCanvasDimensions() {
+            if (!canvas) return;
+            if (isPortrait) {
+                canvas.width = 1080;
+                canvas.height = 1920;
+                document.getElementById('resolutionBadge').innerText = '1080x1920 (9:16 Story)';
+            } else {
+                canvas.width = 1920;
+                canvas.height = 1080;
+                document.getElementById('resolutionBadge').innerText = '1920x1080 (16:9 Landscape)';
+            }
+        }
+
+        function toggleAspectRatio() {
+            isPortrait = !isPortrait;
+            setCanvasDimensions();
+            renderCurrentFrame();
+        }
+
+        function handleMusicUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const url = URL.createObjectURL(file);
+            bgAudioElement.src = url;
+            bgAudioElement.volume = parseFloat(document.getElementById('bgMusicVolume').value || 0.3);
+            bgAudioLoaded = true;
+
+            document.getElementById('bgMusicStatus').innerText = file.name;
+            document.getElementById('bgMusicStatus').className = 'text-[10px] text-emerald-600 dark:text-emerald-400 font-medium truncate max-w-[150px]';
+            document.getElementById('musicControls').classList.remove('hidden');
+            document.getElementById('removeMusicBtn').classList.remove('hidden');
+        }
+
+        function updateMusicVolume(val) {
+            if (bgAudioElement) {
+                bgAudioElement.volume = parseFloat(val);
+            }
+        }
+
+        function removeBackgroundMusic() {
+            if (bgAudioElement) {
+                bgAudioElement.pause();
+                bgAudioElement.src = '';
+            }
+            bgAudioLoaded = false;
+            document.getElementById('musicFileInput').value = '';
+            document.getElementById('bgMusicStatus').innerText = 'No Track Uploaded';
+            document.getElementById('bgMusicStatus').className = 'text-[10px] text-slate-500 dark:text-slate-400';
+            document.getElementById('musicControls').classList.add('hidden');
+            document.getElementById('removeMusicBtn').classList.add('hidden');
+        }
+
+        function renderImageGallery() {
+            const gallery = document.getElementById('imageGalleryGrid');
+            if (!gallery) return;
+            gallery.innerHTML = '';
+
+            propertyImages.forEach((imgItem, index) => {
+                const div = document.createElement('div');
+                div.className = 'relative group aspect-square rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-dark-900 shadow hover:scale-105 transition';
+                
+                const imgSrc = imgItem.url || (imgItem.loadedImage ? imgItem.loadedImage.src : '');
+                div.innerHTML = `
+                    <img src="${imgSrc}" class="w-full h-full object-cover">
+                    <button onclick="removeImage(${index})" class="absolute top-1 right-1 bg-red-600/90 text-white w-5 h-5 rounded-full text-[10px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition shadow">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                    <span class="absolute bottom-0 inset-x-0 bg-black/80 text-[9px] text-gray-200 p-0.5 text-center truncate font-medium">${index + 1}. ${imgItem.caption}</span>
+                `;
+                gallery.appendChild(div);
+            });
+
+            document.getElementById('imgCountBadge').innerText = `${propertyImages.length} Images`;
+            
+            totalDuration = TARGET_VIDEO_DURATION;
+            slideDuration = propertyImages.length > 0 ? totalDuration / propertyImages.length : totalDuration;
+            document.getElementById('totalTimeText').innerText = formatTime(totalDuration);
+        }
+
+        function removeImage(index) {
+            propertyImages.splice(index, 1);
+            renderImageGallery();
+            renderCurrentFrame();
+        }
+
+        function handleImageUpload(e) {
+            const files = e.target.files;
+            if (!files || files.length === 0) return;
+
+            Array.from(files).forEach((file) => {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        propertyImages.push({
+                            url: event.target.result,
+                            caption: file.name.replace(/\.[^/.]+$/, ""),
+                            loadedImage: img
+                        });
+                        renderImageGallery();
+                        renderCurrentFrame();
+                    };
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function initSpeechEngine() {
+            if (!speechSynth) return;
+
+            function loadVoices() {
+                availableVoices = speechSynth.getVoices();
+                const select = document.getElementById('voice-select');
+                if (!select) return;
+                select.innerHTML = '<option value="auto" selected>Auto Best Voice</option>';
+
+                availableVoices.forEach((v, i) => {
+                    if (v.lang && v.lang.startsWith('en')) {
+                        const opt = document.createElement('option');
+                        opt.value = i;
+                        opt.innerText = `${v.name} (${v.lang})`;
+                        select.appendChild(opt);
+                    }
+                });
+
+                const defaultVoice = availableVoices.find(v => v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Samantha')));
+                if (defaultVoice) selectedVoice = defaultVoice;
+            }
+
+            loadVoices();
+            if (speechSynth.onvoiceschanged !== undefined) {
+                speechSynth.onvoiceschanged = loadVoices;
+            }
+        }
+
+        function onVoiceChange() {
+            const val = document.getElementById('voice-select').value;
+            if (val === 'auto') {
+                selectedVoice = availableVoices.find(v => v.lang.startsWith('en')) || null;
+            } else {
+                selectedVoice = availableVoices[parseInt(val)] || null;
+            }
+        }
+
+        function speakText(text) {
+            if (!speechSynth || !text) return;
+            try {
+                speechSynth.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                if (selectedVoice) utterance.voice = selectedVoice;
+                utterance.rate = 1.0;
+                speechSynth.speak(utterance);
+            } catch (e) {}
+        }
+
+        function speakCurrentScript() {
+            const script = document.getElementById('scriptText').value || '';
+            speakText(script);
+        }
+
+        function generateAIScript() {
+            const title = document.getElementById('propTitle').value || 'Exclusive Property';
+            const location = document.getElementById('propLocation').value || 'Prime Location';
+            const type = document.getElementById('propType').value || 'Residence';
+            const price = document.getElementById('propPrice').value || 'Contact for Price';
+            const cta = document.getElementById('propCTA').value || 'Inquire Today';
+            const features = document.getElementById('propFeatures').value.split(',').map(f => f.trim());
+            const tone = document.getElementById('scriptTone').value;
+
+            let script = '';
+            if (tone === 'luxury') {
+                script = `Welcome to ${title}, an exquisite ${type} located in ${location}. Offered at ${price}. Key highlights include ${features.join(', ')}. ${cta}.`;
+            } else if (tone === 'cozy') {
+                script = `Discover your new home at ${title} in ${location}. Beautiful ${type} offered at ${price}. Features ${features.join(', ')}. ${cta}.`;
+            } else {
+                script = `Explore ${title} in ${location}. Prime ${type} available for ${price}. Highlights: ${features.join(', ')}. ${cta}!`;
+            }
+
+            document.getElementById('scriptText').value = script;
+            updateWordCount();
+        }
+
+        function updateWordCount() {
+            const text = document.getElementById('scriptText').value;
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            document.getElementById('wordCountBadge').innerText = `${words} words`;
+        }
+
+        function renderCurrentFrame() {
+            if (!canvas || !ctx) return;
+
+            const w = canvas.width;
+            const h = canvas.height;
+
+            const isDark = document.documentElement.classList.contains('dark');
+            ctx.fillStyle = isDark ? '#030712' : '#f8fafc';
+            ctx.fillRect(0, 0, w, h);
+
+            if (propertyImages.length === 0) {
+                // Empty State Placeholder on Canvas
+                ctx.fillStyle = '#38bdf8';
+                ctx.font = `700 ${Math.round(w * 0.035)}px "Plus Jakarta Sans", sans-serif`;
+                ctx.textAlign = 'center';
+                ctx.fillText('NO PROPERTY IMAGES ADDED', w / 2, h / 2 - 30);
+
+                ctx.fillStyle = '#94a3b8';
+                ctx.font = `500 ${Math.round(w * 0.022)}px "Plus Jakarta Sans", sans-serif`;
+                ctx.fillText('Upload images or select sample data to preview video', w / 2, h / 2 + 25);
+                return;
+            }
+
+            const currentSlideIndex = Math.min(
+                Math.floor(currentTime / slideDuration),
+                propertyImages.length - 1
+            );
+            const timeInSlide = currentTime % slideDuration;
+            const slideProgress = timeInSlide / slideDuration;
+
+            const hudInfo = document.getElementById('hudSlideInfo');
+            if (hudInfo) hudInfo.innerText = `Scene ${currentSlideIndex + 1} of ${propertyImages.length}`;
+
+            const currentSlide = propertyImages[currentSlideIndex];
+
+            const globalProgress = currentTime / totalDuration;
+            const currentZoomScale = 1.0 + (globalProgress * 0.25);
+
+            const transitionDuration = 1.2;
+            const isTransitioning = (timeInSlide > (slideDuration - transitionDuration)) && (currentSlideIndex < propertyImages.length - 1);
+
+            ctx.save();
+            if (isTransitioning) {
+                const nextSlide = propertyImages[currentSlideIndex + 1];
+                const transitionProgress = (timeInSlide - (slideDuration - transitionDuration)) / transitionDuration;
+
+                if (currentSlide && currentSlide.loadedImage) {
+                    renderImageCover(currentSlide.loadedImage, currentZoomScale);
+                }
+
+                ctx.save();
+                ctx.globalAlpha = transitionProgress;
+                if (nextSlide && nextSlide.loadedImage) {
+                    renderImageCover(nextSlide.loadedImage, currentZoomScale);
+                }
+                ctx.restore();
+            } else {
+                if (currentSlide && currentSlide.loadedImage) {
+                    renderImageCover(currentSlide.loadedImage, currentZoomScale);
+                }
+            }
+            ctx.restore();
+
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
+            ctx.shadowBlur = 12;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 3;
+
+            // Header Overlay
+            ctx.save();
+            const topGradient = ctx.createLinearGradient(0, 0, 0, h * 0.32);
+            topGradient.addColorStop(0, 'rgba(3, 7, 18, 0.92)');
+            topGradient.addColorStop(0.65, 'rgba(3, 7, 18, 0.55)');
+            topGradient.addColorStop(1, 'rgba(3, 7, 18, 0)');
+            ctx.fillStyle = topGradient;
+            ctx.fillRect(0, 0, w, h * 0.32);
+
+            const title = document.getElementById('propTitle').value || 'Luxury Listing';
+            const location = document.getElementById('propLocation').value || 'Prime Location';
+
+            ctx.textAlign = 'center';
+
+            ctx.fillStyle = '#38bdf8';
+            ctx.font = `700 ${Math.round(w * 0.026)}px "Plus Jakarta Sans", sans-serif`;
+            ctx.fillText('EXCLUSIVE REAL ESTATE SHOWCASE', w / 2, h * 0.052);
+
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = `800 ${Math.round(w * 0.056)}px "Plus Jakarta Sans", sans-serif`;
+            
+            const maxTitleWidth = w * 0.88;
+            if (ctx.measureText(title).width > maxTitleWidth) {
+                const words = title.split(' ');
+                let line1 = words.slice(0, Math.ceil(words.length / 2)).join(' ');
+                let line2 = words.slice(Math.ceil(words.length / 2)).join(' ');
+                
+                ctx.fillText(line1, w / 2, h * 0.10);
+                ctx.fillText(line2, w / 2, h * 0.145);
+                
+                ctx.fillStyle = '#CBD5E1';
+                ctx.font = `600 ${Math.round(w * 0.032)}px "Plus Jakarta Sans", sans-serif`;
+                ctx.fillText(`📍 ${location}`, w / 2, h * 0.19);
+            } else {
+                ctx.fillText(title, w / 2, h * 0.11);
+                
+                ctx.fillStyle = '#CBD5E1';
+                ctx.font = `600 ${Math.round(w * 0.032)}px "Plus Jakarta Sans", sans-serif`;
+                ctx.fillText(`📍 ${location}`, w / 2, h * 0.155);
+            }
+            ctx.restore();
+
+            // Bottom Overlay
+            ctx.save();
+            const bottomGradient = ctx.createLinearGradient(0, h * 0.50, 0, h);
+            bottomGradient.addColorStop(0, 'rgba(3, 7, 18, 0)');
+            bottomGradient.addColorStop(0.35, 'rgba(3, 7, 18, 0.70)');
+            bottomGradient.addColorStop(1, 'rgba(3, 7, 18, 0.96)');
+            ctx.fillStyle = bottomGradient;
+            ctx.fillRect(0, h * 0.50, w, h * 0.50);
+
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
+            ctx.shadowBlur = 14;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 4;
+
+            const features = document.getElementById('propFeatures').value.split(',').map(f => f.trim());
+            const fullFeatureText = features[currentSlideIndex % features.length] || currentSlide.caption || '';
+            const textFadeOpacity = Math.min(1, slideProgress / 0.15);
+
+            ctx.textAlign = 'center';
+            ctx.save();
+            ctx.globalAlpha = textFadeOpacity;
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = `800 ${Math.round(w * 0.054)}px "Plus Jakarta Sans", sans-serif`;
+            ctx.fillText(fullFeatureText, w / 2, h * 0.73);
+            ctx.restore();
+
+            const price = document.getElementById('propPrice').value || 'Contact for Price';
+            ctx.fillStyle = '#38bdf8';
+            ctx.font = `800 ${Math.round(w * 0.068)}px "Plus Jakarta Sans", sans-serif`;
+            ctx.fillText(price, w / 2, h * 0.835);
+
+            const cta = document.getElementById('propCTA').value || 'Inquire Today';
+            ctx.fillStyle = '#E2E8F0';
+            ctx.font = `600 ${Math.round(w * 0.032)}px "Plus Jakarta Sans", sans-serif`;
+            ctx.fillText(cta, w / 2, h * 0.90);
+            ctx.restore();
+        }
+
+        function renderImageCover(img, scale) {
+            if (!img) return;
+            const w = canvas.width;
+            const h = canvas.height;
+            const imgWidth = img.naturalWidth || img.width || 1080;
+            const imgHeight = img.naturalHeight || img.height || 1080;
+
+            const imgRatio = imgWidth / imgHeight;
+            const canvasRatio = w / h;
+
+            let renderW, renderH, x, y;
+            if (imgRatio > canvasRatio) {
+                renderH = h * scale;
+                renderW = (h * imgRatio) * scale;
+            } else {
+                renderW = w * scale;
+                renderH = (w / imgRatio) * scale;
+            }
+
+            x = (w - renderW) / 2;
+            y = (h - renderH) / 2;
+
+            try {
+                ctx.drawImage(img, x, y, renderW, renderH);
+            } catch(e) {}
+        }
+
+        function togglePlayPause() {
+            if (propertyImages.length === 0) {
+                alert("Please add property images or select sample data before playing preview.");
+                return;
+            }
+            if (isPlaying) {
+                pauseVideo();
+            } else {
+                playVideo();
+            }
+        }
+
+        function playVideo() {
+            if (propertyImages.length === 0) return;
+            isPlaying = true;
+            lastSpokenScene = -1;
+
+            document.getElementById('playIcon').className = 'fa-solid fa-pause';
+            document.getElementById('livePulse').className = 'w-3 h-3 rounded-full bg-red-500 animate-pulse';
+            document.getElementById('audioVisualizer').className = 'absolute top-3 right-3 flex items-end space-x-1 h-4 px-2 py-1 bg-black/50 rounded-lg opacity-100';
+
+            if (speechSynth && speechSynth.paused) speechSynth.resume();
+
+            if (bgAudioLoaded && bgAudioElement) {
+                bgAudioElement.play().catch(e => {});
+            }
+
+            lastTimestamp = performance.now();
+
+            function loop(timestamp) {
+                if (!isPlaying) return;
+
+                const delta = (timestamp - lastTimestamp) / 1000;
+                lastTimestamp = timestamp;
+
+                currentTime += delta;
+                if (currentTime >= totalDuration) {
+                    currentTime = 0;
+                    lastSpokenScene = -1;
+                    if (bgAudioLoaded && bgAudioElement) {
+                        bgAudioElement.currentTime = 0;
+                    }
+                }
+
+                const activeSceneIndex = Math.floor(currentTime / slideDuration);
+                if (activeSceneIndex !== lastSpokenScene) {
+                    lastSpokenScene = activeSceneIndex;
+                    triggerSceneNarration(activeSceneIndex);
+                }
+
+                updateTimelineUI();
+                renderCurrentFrame();
+                animationFrameId = requestAnimationFrame(loop);
+            }
+
+            animationFrameId = requestAnimationFrame(loop);
+        }
+
+        function triggerSceneNarration(sceneIdx) {
+            const features = document.getElementById('propFeatures').value.split(',').map(f => f.trim());
+            const text = features[sceneIdx % features.length] || propertyImages[sceneIdx]?.caption || '';
+            if (text) speakText(text);
+        }
+
+        function pauseVideo() {
+            isPlaying = false;
+            document.getElementById('playIcon').className = 'fa-solid fa-play ml-0.5';
+            document.getElementById('livePulse').className = 'w-3 h-3 rounded-full bg-slate-400 dark:bg-slate-600';
+            document.getElementById('audioVisualizer').className = 'absolute top-3 right-3 flex items-end space-x-1 h-4 px-2 py-1 bg-black/50 rounded-lg opacity-40';
+
+            if (speechSynth) speechSynth.cancel();
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+
+            if (bgAudioElement) bgAudioElement.pause();
+        }
+
+        function stopVideo() {
+            pauseVideo();
+            currentTime = 0;
+            if (bgAudioElement) bgAudioElement.currentTime = 0;
+            updateTimelineUI();
+            renderCurrentFrame();
+        }
+
+        function seekVideo(e) {
+            if (propertyImages.length === 0) return;
+            const rect = e.currentTarget.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const pct = clickX / rect.width;
+            currentTime = pct * totalDuration;
+            if (bgAudioLoaded && bgAudioElement) {
+                bgAudioElement.currentTime = currentTime % (bgAudioElement.duration || totalDuration);
+            }
+            updateTimelineUI();
+            renderCurrentFrame();
+        }
+
+        function updateTimelineUI() {
+            const pct = (currentTime / totalDuration) * 100;
+            document.getElementById('timelineProgress').style.width = `${pct}%`;
+            document.getElementById('currentTimeText').innerText = formatTime(currentTime);
+        }
+
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60);
+            const s = Math.floor(seconds % 60);
+            return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+
+        function recordAndExportVideo() {
+            if (propertyImages.length === 0) {
+                alert("Please add property images or select sample data before exporting.");
+                return;
+            }
+
+            stopVideo();
+
+            const statusBox = document.getElementById('exportStatusBox');
+            const progress = document.getElementById('exportProgressBar');
+            const percentText = document.getElementById('exportPercent');
+            const downloadArea = document.getElementById('downloadActionArea');
+            const exportTitle = document.getElementById('exportTitle');
+            const exportSpinner = document.getElementById('exportSpinner');
+
+            statusBox.classList.remove('hidden');
+            downloadArea.classList.add('hidden');
+            exportTitle.innerText = 'Generating MP4 Video File...';
+            exportSpinner.className = 'fa-solid fa-spinner fa-spin text-sm';
+
+            const stream = canvas.captureStream(30);
+            let mediaRecorder;
+            let recordedChunks = [];
+
+            const mimeTypes = ['video/mp4;codecs="avc1.42E01E, mp4a.40.2"', 'video/mp4', 'video/webm;codecs=vp9,opus'];
+            let selectedMimeType = '';
+            for (let type of mimeTypes) {
+                if (MediaRecorder.isTypeSupported(type)) {
+                    selectedMimeType = type;
+                    break;
+                }
+            }
+
+            try {
+                mediaRecorder = selectedMimeType ? new MediaRecorder(stream, { mimeType: selectedMimeType }) : new MediaRecorder(stream);
+            } catch (e) {
+                mediaRecorder = new MediaRecorder(stream);
+            }
+
+            mediaRecorder.ondataavailable = function(e) {
+                if (e.data.size > 0) recordedChunks.push(e.data);
+            };
+
+            mediaRecorder.onstop = function() {
+                const blob = new Blob(recordedChunks, { type: selectedMimeType.includes('mp4') ? 'video/mp4' : 'video/webm' });
+                const videoUrl = URL.createObjectURL(blob);
+                const downloadLink = document.getElementById('downloadLink');
+                downloadLink.href = videoUrl;
+
+                exportTitle.innerText = 'MP4 Video Generated Successfully!';
+                exportSpinner.className = 'fa-solid fa-circle-check text-emerald-400 text-sm';
+                downloadArea.classList.remove('hidden');
+            };
+
+            mediaRecorder.start();
+            currentTime = 0;
+
+            function recordStep() {
+                currentTime += 0.1;
+                updateTimelineUI();
+                renderCurrentFrame();
+
+                const pct = Math.min(Math.round((currentTime / totalDuration) * 100), 100);
+                progress.style.width = `${pct}%`;
+                percentText.innerText = `${pct}%`;
+
+                if (currentTime < totalDuration) {
+                    setTimeout(recordStep, 30);
+                } else {
+                    mediaRecorder.stop();
+                }
+            }
+
+            recordStep();
+        }
+
+        function clearAllData() {
+            document.getElementById('propTitle').value = '';
+            document.getElementById('propLocation').value = '';
+            document.getElementById('propType').selectedIndex = 0;
+            document.getElementById('propPrice').value = '';
+            document.getElementById('propCTA').value = '';
+            document.getElementById('propFeatures').value = '';
+            document.getElementById('scriptText').value = '';
+            document.getElementById('wordCountBadge').innerText = '0 words';
+
+            propertyImages = [];
+            removeBackgroundMusic();
+            renderImageGallery();
+            stopVideo();
+            renderCurrentFrame();
+        }
+    </script>
+</body>
+</html>
